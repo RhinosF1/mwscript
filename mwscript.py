@@ -20,13 +20,13 @@ def getScripts(args):
         command = f'sudo -u www-data /usr/local/bin/foreachwikiindblist /srv/mediawiki/cache/databases.json {script}'
     elif wiki in ('extension', 'skin'):
         extension = input('Type the ManageWiki name of the extension or skin: ')
-        scripts['generate'] = f'php {MWPATH}/extensions/MirahezeMagic/maintenance/generateExtensionDatabaseList.php --wiki=loginwiki --extension={extension}'  # noqa: E501
+        scripts['generate'] = {'command': f'php {MWPATH}/extensions/MirahezeMagic/maintenance/generateExtensionDatabaseList.php --wiki=loginwiki --extension={extension}'}  # noqa: E501
         command = f'sudo -u www-data /usr/local/bin/foreachwikiindblist /home/{os.getlogin()}/{extension}.json {script}'
     else:
         command = f'sudo -u www-data php {script} --wiki={wiki}'
     if len(sys.argv) == 4:
         command = f'{command} {args[3]}'
-    scripts['main'] = command
+    scripts['main'] = {'command': command}
     return scripts
 
 
