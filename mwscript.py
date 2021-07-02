@@ -45,7 +45,7 @@ if __name__ == '__main__':
     if confirm.upper() == 'Y':
         for cmdtype in scripts.keys():
             scripts[cmdtype]['return'] = os.system(scripts[cmdtype]['command'])
-        logcommand = getLogCommand(scrips['main']['command'], scripts['main']['return'], 'END')
+        logcommand = getLogCommand(scripts['main']['command'], scripts['main']['return'], 'END')
         print('Done!')
     else:
         print('Aborted!')
