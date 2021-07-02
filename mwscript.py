@@ -4,6 +4,7 @@ import os
 import sys
 MWPATH = '/srv/mediawiki/w'
 
+
 def getScripts(args):
     scripts = {}
     script = args[1]
@@ -19,7 +20,7 @@ def getScripts(args):
         command = f'sudo -u www-data /usr/local/bin/foreachwikiindblist /srv/mediawiki/cache/databases.json {script}'
     elif wiki in ('extension', 'skin'):
         extension = input('Type the ManageWiki name of the extension or skin: ')
-        scripts['generate'] = f'php {MWPATH}/extensions/MirahezeMagic/maintenance/generateExtensionDatabaseList.php --wiki=loginwiki --extension={extension}'  #  noqa: E501
+        scripts['generate'] = f'php {MWPATH}/extensions/MirahezeMagic/maintenance/generateExtensionDatabaseList.php --wiki=loginwiki --extension={extension}'  # noqa: E501
         command = f'sudo -u www-data /usr/local/bin/foreachwikiindblist /home/{os.getlogin()}/{extension}.json {script}'
     else:
         command = f'sudo -u www-data php {script} --wiki={wiki}'
@@ -28,8 +29,10 @@ def getScripts(args):
     scripts['main'] = command
     return scripts
 
+
 def getLogCommand(command, return_value, pos):
     return f'/usr/local/bin/logsalmsg "{command} ({pos} - exit={str(return_value)}"'
+
 
 if __name__ == '__main__':
     if len(sys.argv) < 3:
@@ -42,7 +45,7 @@ if __name__ == '__main__':
     if confirm.upper() == 'Y':
         for cmdtype in scripts.keys():
             scripts[cmdtype]['return'] = os.system(scripts[cmdtype]['command'])
-        logcommand = getLogCommand(command['main']['command'], command['main']['return'], 'END')
+        logcommand = getLogCommand(scrips['main']['command'], scripts['main']['return'], 'END')
         print('Done!')
     else:
         print('Aborted!')
