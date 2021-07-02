@@ -29,4 +29,5 @@ jobs:
           python --version
       - name: Run tests
         run: |
-          flake8 .  --max-line-length=125
+          flake8 mwscript.py  --max-line-length=125
+	  pytest tests.py  -vv
